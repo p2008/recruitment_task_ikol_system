@@ -1,6 +1,7 @@
 <template>
   <div>
     <v-btn
+      id="submit"
       :disabled="!$attrs.valid"
       class="mr-4"
       color="success"
@@ -11,6 +12,7 @@
     </v-btn>
 
     <v-btn
+      id="clear"
       class="mr-4"
       color="error"
       @click="$listeners.clear">

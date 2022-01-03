@@ -3,6 +3,7 @@
     <label v-text="label"/>
 
     <v-text-field
+      :id="`${label} latitude`"
       v-model="points.latitude"
       :rules="rules.latitude"
       :label="`${label} latitude`"
@@ -11,6 +12,7 @@
     />
 
     <v-text-field
+      :id="`${label} longitude`"
       v-model="points.longitude"
       :rules="rules.longitude"
       :label="`${label} longitude`"
