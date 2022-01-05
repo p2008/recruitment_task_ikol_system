@@ -33,7 +33,7 @@ export default {
           list,
         } = options;
 
-        return typeof title === 'string' && typeof Array.isArray(list);
+        return typeof title === 'string' && Array.isArray(list);
       },
     },
   },
