@@ -69,6 +69,7 @@ export default {
       handler() {
         this.evaluateDistance(this.distance.unit);
       },
+      immediate: true,
     },
   },
 
