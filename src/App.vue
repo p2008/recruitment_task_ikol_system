@@ -1,8 +1,10 @@
 <template>
   <v-app>
     <v-main>
-      <InputForm @form-submit="requestForDistance"/>
-      <OutputDistance :distance="distance"/>
+      <v-container>
+        <InputForm @form-submit="requestForDistance"/>
+        <OutputDistance :distance="distance"/>
+      </v-container>
     </v-main>
   </v-app>
 </template>
@@ -26,8 +28,14 @@ export default {
 
   methods: {
     async requestForDistance(geoPoints) {
-      const { distance: value, unit } = (await getSimple(geoPoints)).data;
-      this.distance = { value, unit };
+      const {
+        distance: value,
+        unit,
+      } = (await getSimple(geoPoints)).data;
+      this.distance = {
+        value,
+        unit,
+      };
     },
   },
 };
