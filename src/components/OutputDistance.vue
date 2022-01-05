@@ -38,6 +38,12 @@ export default {
     distance: {
       type: Object,
       required: true,
+      validator(options) {
+        const { distance, unit } = options;
+        const areNoKeysInDistance = !Object.keys(options).length;
+        const areDistanceValuesStrings = typeof distance === 'number' && typeof unit === 'string';
+        return areNoKeysInDistance || areDistanceValuesStrings;
+      },
     },
   },
 
