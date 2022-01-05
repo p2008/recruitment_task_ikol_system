@@ -1,28 +1,48 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+  <v-app>
+    <v-main>
+      <v-container>
+        <InputForm @form-submit="requestForDistance"/>
+
+        <template v-if="successfulRequest === true">
+          <OutputDistance :distance="distance"/>
+        </template>
+        <template v-if="successfulRequest === false">
+          <base-alert/>
+        </template>
+      </v-container>
+    </v-main>
+  </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue';
+import InputForm from '@/components/InputForm';
+import { getSimple } from '@/api/url_layer';
 
 export default {
   name: 'App',
+
   components: {
-    HelloWorld,
+    BaseAlert: () => import('@/components/baseAlert'),
+    InputForm,
+    OutputDistance: () => import('@/components/OutputDistance'),
+  },
+
+  data: () => ({
+    distance: {},
+    successfulRequest: null,
+  }),
+
+  methods: {
+    async requestForDistance(geoPoints) {
+      try {
+        const { distance, unit } = (await getSimple(geoPoints)).data;
+        this.distance = { distance, unit };
+        this.successfulRequest = true;
+      } catch {
+        this.successfulRequest = false;
+      }
+    },
   },
 };
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
