@@ -1,13 +1,28 @@
 <template>
-  <div v-if="'value' in evaluatedDistance">
-    <base-switch :options="options"
-                 @click="evaluateDistance"
-    />
-    <span>
-      The distance between points is equal
-      {{ evaluatedDistance.value }} {{ evaluatedDistance.unit }}
-    </span>
-  </div>
+  <v-card
+    v-if="'value' in evaluatedDistance"
+    class="card-inner-center my-12"
+    flat
+  >
+    <v-card-text>
+      <p class="text-h4 v-label">
+        The distance
+      </p>
+    </v-card-text>
+
+    <v-card-text>
+      <base-switch
+        :options="options"
+        @click="evaluateDistance"
+      />
+    </v-card-text>
+
+    <v-card-text>
+      <p class="text-h4 v-label">
+        {{ evaluatedDistance.value }} {{ evaluatedDistance.unit }}
+      </p>
+    </v-card-text>
+  </v-card>
 </template>
 
 <script>
@@ -67,4 +82,13 @@ export default {
 
 <style scoped>
 
+.card-inner-center {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+}
+
+.v-card__text {
+  width: auto;
+}
 </style>

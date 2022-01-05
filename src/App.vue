@@ -1,8 +1,10 @@
 <template>
   <v-app>
     <v-main>
-      <InputForm @form-submit="requestForDistance"/>
-      <OutputDistance :distance="distance"/>
+      <v-container>
+        <InputForm @form-submit="requestForDistance"/>
+        <OutputDistance :distance="distance"/>
+      </v-container>
     </v-main>
   </v-app>
 </template>

@@ -1,28 +1,36 @@
 <template>
-  <v-form
-    ref="form"
-    v-model="valid"
-    lazy-validation
-    @submit.prevent="submit"
-  >
+  <v-container>
+    <v-form
+      ref="form"
+      v-model="valid"
+      lazy-validation
+      @submit.prevent="submit"
+    >
+      <v-row>
+        <v-col>
+          <base-geo-points-input
+            v-model="geoPoints.start"
+            label="Start point"
+          />
+        </v-col>
 
-    <base-geo-points-input
-      v-model="geoPoints.start"
-      label="Start point"
-    />
+        <v-col>
+          <base-geo-points-input
+            v-model="geoPoints.end"
+            label="End point"
+          />
+        </v-col>
+      </v-row>
 
-    <base-geo-points-input
-      v-model="geoPoints.end"
-      label="End point"
-    />
-
-    <input-form-buttons
-      @submit="validate"
-      @clear="clearForm"
-      :valid="valid"
-    />
-  </v-form>
-
+      <v-row>
+        <input-form-buttons
+          :valid="valid"
+          @clear="clearForm"
+          @submit="validate"
+        />
+      </v-row>
+    </v-form>
+  </v-container>
 </template>
 
 <script>
@@ -31,7 +39,10 @@ import InputFormButtons from '@/components/InputFormButtons';
 
 export default {
   name: 'InputForm',
-  components: { InputFormButtons, BaseGeoPointsInput },
+  components: {
+    InputFormButtons,
+    BaseGeoPointsInput,
+  },
   data: () => ({
     valid: true,
     geoPoints: {

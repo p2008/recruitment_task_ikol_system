@@ -1,34 +1,17 @@
 <template>
   <div>
-    <v-card class="py-12"
-            flat
+    <v-btn-toggle
+      v-model="currentOption"
+      mandatory
+      @change="onChangeEmit"
     >
-
-      <v-card-text>
-        <v-row align="center"
-               justify="center"
-        >
-          <v-col cols="12">
-            <p class="text-center"
-               v-text="options.title"
-            />
-          </v-col>
-
-          <v-btn-toggle v-model="currentOption"
-                        mandatory
-                        @change="onChangeEmit"
-          >
-            <v-btn v-for="option in options.list"
-                   :key="option"
-            >
-              <span v-text="option"/>
-            </v-btn>
-          </v-btn-toggle>
-
-        </v-row>
-      </v-card-text>
-
-    </v-card>
+      <v-btn
+        v-for="option in options.list"
+        :key="option"
+      >
+        <span v-text="option"/>
+      </v-btn>
+    </v-btn-toggle>
   </div>
 </template>
 
