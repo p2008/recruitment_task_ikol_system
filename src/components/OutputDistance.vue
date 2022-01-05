@@ -1,10 +1,11 @@
 <template>
-  <div v-if="evaluatedDistance.value">
+  <div v-if="'value' in evaluatedDistance">
     <base-switch :options="options"
                  @click="evaluateDistance"
     />
     <span>
-      The distance between points is equal {{ evaluatedDistance.value }} {{ evaluatedDistance.unit }}
+      The distance between points is equal
+      {{ evaluatedDistance.value }} {{ evaluatedDistance.unit }}
     </span>
   </div>
 </template>
@@ -27,6 +28,7 @@ export default {
 
   data() {
     return {
+      roundTo: 2,
       evaluatedDistance: {},
       units,
     };
@@ -55,7 +57,7 @@ export default {
     },
     evaluateDistance(unit) {
       this.evaluatedDistance = {
-        value: this.distance.value / this.divideBy(unit),
+        value: (this.distance.value / this.divideBy(unit)).toFixed(this.roundTo),
         unit,
       };
     },
