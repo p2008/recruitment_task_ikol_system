@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-main>
-      <InputForm @form-submit="apiPost"/>
+      <InputForm @form-submit="requestForDistance"/>
       <OutputDistance :distance="distance"/>
     </v-main>
   </v-app>
@@ -10,6 +10,7 @@
 <script>
 import InputForm from '@/components/InputForm';
 import OutputDistance from '@/components/OutputDistance';
+import { getSimple } from '@/api/url_layer';
 
 export default {
   name: 'App',
@@ -24,11 +25,9 @@ export default {
   }),
 
   methods: {
-    apiPost(geoPoints) {
-      console.log(geoPoints.start, geoPoints.end);
-      return new Promise(() => {
-        this.distance = { value: '1000', unit: 'meter' };
-      });
+    async requestForDistance(geoPoints) {
+      const { distance: value, unit } = (await getSimple(geoPoints)).data;
+      this.distance = { value, unit };
     },
   },
 };
