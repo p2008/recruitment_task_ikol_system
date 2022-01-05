@@ -1,6 +1,6 @@
 <template>
   <v-card
-    v-if="'value' in evaluatedDistance"
+    v-if="'distance' in evaluatedDistance"
     class="card-inner-center my-12"
     flat
   >
@@ -19,7 +19,7 @@
 
     <v-card-text>
       <p class="text-h4 v-label">
-        {{ evaluatedDistance.value }} {{ evaluatedDistance.unit }}
+        {{ evaluatedDistance.distance }} {{ evaluatedDistance.unit }}
       </p>
     </v-card-text>
   </v-card>
@@ -38,6 +38,12 @@ export default {
     distance: {
       type: Object,
       required: true,
+      validator(options) {
+        const { distance, unit } = options;
+        const areNoKeysInDistance = !Object.keys(options).length;
+        const areDistanceValuesStrings = typeof distance === 'number' && typeof unit === 'string';
+        return areNoKeysInDistance || areDistanceValuesStrings;
+      },
     },
   },
 
@@ -63,6 +69,7 @@ export default {
       handler() {
         this.evaluateDistance(this.distance.unit);
       },
+      immediate: true,
     },
   },
 
@@ -72,7 +79,7 @@ export default {
     },
     evaluateDistance(unit) {
       this.evaluatedDistance = {
-        value: (this.distance.value / this.divideBy(unit)).toFixed(this.roundTo),
+        distance: (this.distance.distance / this.divideBy(unit)).toFixed(this.roundTo),
         unit,
       };
     },

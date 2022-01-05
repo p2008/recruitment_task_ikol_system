@@ -3,7 +3,13 @@
     <v-main>
       <v-container>
         <InputForm @form-submit="requestForDistance"/>
-        <OutputDistance :distance="distance"/>
+
+        <template v-if="successfulRequest === true">
+          <OutputDistance :distance="distance"/>
+        </template>
+        <template v-if="successfulRequest === false">
+          <base-alert/>
+        </template>
       </v-container>
     </v-main>
   </v-app>
@@ -11,31 +17,31 @@
 
 <script>
 import InputForm from '@/components/InputForm';
-import OutputDistance from '@/components/OutputDistance';
 import { getSimple } from '@/api/url_layer';
 
 export default {
   name: 'App',
 
   components: {
+    BaseAlert: () => import('@/components/baseAlert'),
     InputForm,
-    OutputDistance,
+    OutputDistance: () => import('@/components/OutputDistance'),
   },
 
   data: () => ({
     distance: {},
+    successfulRequest: null,
   }),
 
   methods: {
     async requestForDistance(geoPoints) {
-      const {
-        distance: value,
-        unit,
-      } = (await getSimple(geoPoints)).data;
-      this.distance = {
-        value,
-        unit,
-      };
+      try {
+        const { distance, unit } = (await getSimple(geoPoints)).data;
+        this.distance = { distance, unit };
+        this.successfulRequest = true;
+      } catch {
+        this.successfulRequest = false;
+      }
     },
   },
 };
