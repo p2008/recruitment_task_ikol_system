@@ -78,7 +78,7 @@ export default {
     },
     evaluateDistance(unit) {
       this.evaluatedDistance = {
-        value: (this.distance.distance / this.divideBy(unit)).toFixed(this.roundTo),
+        distance: (this.distance.distance / this.divideBy(unit)).toFixed(this.roundTo),
         unit,
       };
     },
