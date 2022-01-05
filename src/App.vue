@@ -28,14 +28,8 @@ export default {
 
   methods: {
     async requestForDistance(geoPoints) {
-      const {
-        distance: value,
-        unit,
-      } = (await getSimple(geoPoints)).data;
-      this.distance = {
-        value,
-        unit,
-      };
+      const { distance, unit } = (await getSimple(geoPoints)).data;
+      this.distance = { distance, unit };
     },
   },
 };
